@@ -1,0 +1,14 @@
+@import '"https://fonts.googleapis.com/css?family=Exo+2, 400';
+body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Exo 2', sans-serif;
+    background: rgba(0, 0, 0, 0.05);
+  }
+
+  .react-datepicker__time-container .react-datepicker__time .react-datepicker__time-box ul.react-datepicker__time-list {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+
