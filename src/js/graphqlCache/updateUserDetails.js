@@ -1,11 +1,11 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export default gql`
-    mutation updateUserDetails($index: String!, $value:String!){
-        updateUserDetails(index: $index, value: $value) @client{
-            userName
-            loggedIn
-            userRole
-        }
-    }
+	mutation updateUserDetails($index: String!, $value: String!) {
+		updateUserDetails(index: $index, value: $value) @client {
+			userName
+			loggedIn
+			userRole
+		}
+	}
 `

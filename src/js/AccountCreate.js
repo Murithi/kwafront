@@ -1,13 +1,13 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
 class AddAccount extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {  }
-    }
-    render() { 
-        return (  );
-    }
+	constructor(props) {
+		super(props)
+		this.state = {}
+	}
+	render() {
+		return <div>Ahoy Account Create</div>
+	}
 }
- 
-export default AddAccount;
+
+export default AddAccount

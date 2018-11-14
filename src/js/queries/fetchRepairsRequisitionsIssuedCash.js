@@ -1,30 +1,30 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export default gql`
-  query getApprovedRequisitionsIssuedPayment{
-    issuedRepairsRequisitionsFeed{
+	query getApprovedRequisitionsIssuedPayment {
+		issuedRepairsRequisitionsFeed {
 			id
-    	issuedCash
-    	requestDate
-    	
-    	approxCostOfRepair
-    	otherDetails
-      paymentsDetails{
-      id
-    	amountIssued
-    	recieptNumber
-      dateIssued
-    	}
-   		vehicleToBeRepaired{
-        id
-        registrationNumber
-      }
-      requestedBy{
-        personnelDetails{
-          firstName
-          lastName
-           
-        }
-      }
-  }
-}`;
+			issuedCash
+			requestDate
+
+			approxCostOfRepair
+			otherDetails
+			paymentsDetails {
+				id
+				amountIssued
+				recieptNumber
+				dateIssued
+			}
+			vehicleToBeRepaired {
+				id
+				registrationNumber
+			}
+			requestedBy {
+				personnelDetails {
+					firstName
+					lastName
+				}
+			}
+		}
+	}
+`

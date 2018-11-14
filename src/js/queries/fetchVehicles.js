@@ -1,20 +1,20 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export default gql`
-  query VehicleFeed {
-    vehicleFeed {
-      id
-      registrationNumber
-      logBookNumber
-      model
-      fuelType
-      insuranceValuation
-      insuranceRenewalDate
-      manufactureDate
-      owner {
-        id
-        name
-      }
-    }
-  }
-`;
+	query VehicleFeed {
+		vehicleFeed {
+			id
+			registrationNumber
+			logBookNumber
+			model
+			fuelType
+			insuranceValuation
+			insuranceRenewalDate
+			manufactureDate
+			owner {
+				id
+				name
+			}
+		}
+	}
+`

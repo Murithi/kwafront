@@ -1,10 +1,10 @@
 import gql from 'graphql-tag'
 
 export default gql`
-query getUserRole{
-    me{
-        id
-        role
-        }
-}
-`;
+	query getUserRole {
+		me {
+			id
+			role
+		}
+	}
+`

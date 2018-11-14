@@ -1,17 +1,17 @@
-import gql from 'graphql-tag';
+import gql from 'graphql-tag'
 
 export default gql`
-    query SectionFeed{
-        sectionFeed{
-            id
-            sectionName,
-                    sectionDescription,                    
-                    sectionStartDate,
-                    sectionEndDate,
-                    sectionLocation,
-                    sectionProject {
-                        projectName
-                    },
-        }
-    }
-`;
+	query SectionFeed {
+		sectionFeed {
+			id
+			sectionName
+			sectionDescription
+			sectionStartDate
+			sectionEndDate
+			sectionLocation
+			sectionProject {
+				projectName
+			}
+		}
+	}
+`
