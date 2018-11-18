@@ -1,9 +1,9 @@
 import React, { Component, Fragment } from 'react'
-import { graphql, compose } from 'react-apollo'
+import { graphql } from 'react-apollo'
 import moment from 'moment'
-import gql from 'graphql-tag'
-import { Link, Route } from 'react-router-dom'
-import { Header, Table, Grid, Message, Icon, Menu } from 'semantic-ui-react'
+
+import { Link } from 'react-router-dom'
+import { Header, Table, Message, Icon, Menu } from 'semantic-ui-react'
 
 import getAdvanceRequisitions from './queries/fetchIssuedAdvancesList'
 

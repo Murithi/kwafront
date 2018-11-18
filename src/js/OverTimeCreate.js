@@ -17,6 +17,7 @@ import {
 import InlineError from './messages/InlineError'
 import OverTime_Request_Feed_Query from './queries/fetchOverTimeRequests'
 import Personnel_Feed_Query from './queries/fetchPersonnel'
+import getUserDetails from './queries/getUserDetails'
 
 var personnelOptions = []
 
@@ -165,7 +166,10 @@ class OverTimeRequestCreate extends Component {
 				otherDetails,
 				requestDate,
 			},
-			refetchQueries: [{ query: OverTime_Request_Feed_Query }],
+			refetchQueries: [
+				{ query: getUserDetails },
+				{ query: OverTime_Request_Feed_Query },
+			],
 		})
 		this.props.history.push('/overtimerequests/initiated')
 	}
@@ -193,5 +197,8 @@ export default compose(
 	}),
 	graphql(CREATEOVERTIMEMUTATION, {
 		name: 'createOverTimeRequest',
+	}),
+	graphql(getUserDetails, {
+		name: 'userDetails',
 	}),
 )(OverTimeRequestCreate)

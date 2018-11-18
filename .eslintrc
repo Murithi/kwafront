@@ -1,0 +1,15 @@
+{
+	"extends": ["prettier"],
+	"parserOptions": {
+		"ecmaVersion": 2018,
+		"sourceType": "module"
+	},
+	"env": {
+		"es6": true
+	},
+	"rules": {
+		"semi": "error",
+		"jsx-a11y/href-no-hash": "off",
+		"jsx-a11y/anchor-is-valid": ["warn", { "aspects": ["invalidHref"] }]
+	}
+}

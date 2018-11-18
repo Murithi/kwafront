@@ -13,6 +13,7 @@ class InspectionRequisitionsApproved extends Component {
 		this.state = {}
 	}
 	render() {
+		console.log(this.props.requisitionFeed)
 		const loadingMessage = (
 			<Message icon info>
 				<Icon name="circle notched" loading />

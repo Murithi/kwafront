@@ -124,6 +124,7 @@ import UserDetails from './UserDetails'
 import OverTimeApprove from './OverTimeApprove'
 import OverTimeApproved from './OverTimeApproved'
 import OverTimeIssue from './OverTimeIssue'
+import OverTimeIssued from './OverTimeIssued'
 // import PersonnelReport from './PersonnelReport'
 // import MaterialsReport from './MaterialsReport'
 // import SupplierReport from './SupplierReport'
@@ -513,7 +514,11 @@ class HomePage extends Component {
 								path="/overtimerequests/issue/:id"
 								component={OverTimeIssue}
 							/>
-
+							<Route
+								exact
+								path="/overtimerequests/issued"
+								component={OverTimeIssued}
+							/>
 							<Route exact path="/materials/list" component={MaterialsList} />
 							<Route exact path="/materials/new" component={MaterialsCreate} />
 							<Route

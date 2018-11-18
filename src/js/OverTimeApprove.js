@@ -2,23 +2,16 @@ import React, { Component } from 'react'
 import { graphql, compose } from 'react-apollo'
 import {
 	Header,
-	Table,
 	Grid,
 	Message,
 	Button,
 	Icon,
-	Menu,
 	Divider,
-	Form,
 	Segment,
-	Checkbox,
 } from 'semantic-ui-react'
 import moment from 'moment'
 import DatePicker from 'react-datepicker'
 import gql from 'graphql-tag'
-import _ from 'lodash'
-import { Link, Route } from 'react-router-dom'
-import { Query } from 'react-apollo'
 
 import InitiatedRequisitionsQuery from './queries/fetchOverTimeRequests'
 import getUserDetails from './queries/getUserDetails'
@@ -129,9 +122,19 @@ class OverTimeApprove extends Component {
 							<Button
 								attached="bottom"
 								positive
-								onClick={() => this._approveRequest()}
+								onClick={() => this._approveRequest(true)}
 							>
+								<Icon name="check" />
 								Approve
+							</Button>
+							<hr />
+							<Button
+								attached="bottom"
+								color="red"
+								onClick={() => this._approveRequest(false)}
+							>
+								<Icon name="remove" />
+								Decline
 							</Button>
 						</Segment>
 					</Segment.Group>
@@ -141,7 +144,7 @@ class OverTimeApprove extends Component {
 		)
 	}
 
-	_approveRequest = async () => {
+	_approveRequest = async approvalStatus => {
 		const overtimerequestId = this.props.match.params.id
 		if (!this.state.approvalDate) {
 			var approvalDate = moment().format()
@@ -149,7 +152,7 @@ class OverTimeApprove extends Component {
 			var approvalDate = this.state.approvalDate
 		}
 		await this.props.approveOverTimeRequest({
-			variables: { overtimerequestId, approvalDate },
+			variables: { overtimerequestId, approvalDate, approvalStatus },
 			refetchQueries: [
 				{ query: getUserDetails },
 				{ query: InitiatedRequisitionsQuery },
@@ -160,12 +163,14 @@ class OverTimeApprove extends Component {
 }
 const APPROVEMUTATION = gql`
 	mutation approveoverTimeRequest(
+		$approvalStatus: Boolean
 		$overtimerequestId: ID!
 		$approvalDate: String!
 	) {
 		approveOverTimeRequest(
 			overtimerequestId: $overtimerequestId
 			approvalDate: $approvalDate
+			approvalStatus: $approvalStatus
 		)
 	}
 `

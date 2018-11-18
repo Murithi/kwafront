@@ -1,10 +1,9 @@
 import React, { Component, Fragment } from 'react'
 import { graphql, compose } from 'react-apollo'
-import { Link, Route } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import {
 	Header,
 	Table,
-	Grid,
 	Message,
 	Icon,
 	Menu,
@@ -92,15 +91,31 @@ class AdvanceRequestInitiated extends Component {
 				})()}
 				<Table celled selectable>
 					<Table.Header>
-						<Table.Row>
-							<Table.HeaderCell>Person Requesting</Table.HeaderCell>
-							<Table.HeaderCell>Amount Requested</Table.HeaderCell>
-							<Table.HeaderCell>Requested By</Table.HeaderCell>
-							<Table.HeaderCell>Other Details </Table.HeaderCell>
-							<Table.HeaderCell> Details</Table.HeaderCell>
-							<Table.HeaderCell>Approve</Table.HeaderCell>
-							<Table.HeaderCell>Decline</Table.HeaderCell>
-						</Table.Row>
+						{(() => {
+							if (this.props.userDetails.me.role === 'DIRECTOR') {
+								return (
+									<Table.Row>
+										<Table.HeaderCell>Person Requesting</Table.HeaderCell>
+										<Table.HeaderCell>Amount Requested</Table.HeaderCell>
+										<Table.HeaderCell>Requested By</Table.HeaderCell>
+										<Table.HeaderCell>Other Details </Table.HeaderCell>
+										<Table.HeaderCell> Details</Table.HeaderCell>
+										<Table.HeaderCell>Approve</Table.HeaderCell>
+										<Table.HeaderCell>Decline</Table.HeaderCell>
+									</Table.Row>
+								)
+							} else {
+								return (
+									<Table.Row>
+										<Table.HeaderCell>Person Requesting</Table.HeaderCell>
+										<Table.HeaderCell>Amount Requested</Table.HeaderCell>
+										<Table.HeaderCell>Requested By</Table.HeaderCell>
+										<Table.HeaderCell>Other Details </Table.HeaderCell>
+										<Table.HeaderCell>Approval Status</Table.HeaderCell>
+									</Table.Row>
+								)
+							}
+						})()}
 					</Table.Header>
 					<Table.Body>
 						{this.props.requisitionFeed.initiatedAdvanceRequestFeed.map(
@@ -116,38 +131,44 @@ class AdvanceRequestInitiated extends Component {
 									</Table.Cell>
 									<Table.Cell>{request.otherDetails}</Table.Cell>
 
-									<Table.Cell>
-										{(() => {
-											if (request.approvalStatus) {
-												return <Icon name="checkmark" color="green" />
-											} else {
-												if (this.props.userDetails.me.role === 'DIRECTOR') {
-													return (
+									{(() => {
+										if (this.props.userDetails.me.role === 'DIRECTOR') {
+											return (
+												<Fragment>
+													<Table.Cell>
 														<Link to={`/advancerequests/approve/${request.id}`}>
 															Approve
 															<Icon name="angle double right" color="green" />
 														</Link>
-													)
-												} else {
-													return <Icon name="remove " color="green" />
-												}
-											}
-										})()}
-									</Table.Cell>
-									<Table.Cell>
-										<Icon
-											color="blue"
-											name="check circle"
-											onClick={() => this._approveRequest(true, request.id)}
-										/>
-									</Table.Cell>
-									<Table.Cell>
-										<Icon
-											color="red"
-											name="remove circle"
-											onClick={() => this._approveRequest(false, request.id)}
-										/>
-									</Table.Cell>
+													</Table.Cell>
+													<Table.Cell>
+														<Icon
+															color="blue"
+															name="check circle"
+															onClick={() =>
+																this._approveRequest(true, request.id)
+															}
+														/>
+													</Table.Cell>
+													<Table.Cell>
+														<Icon
+															color="red"
+															name="remove circle"
+															onClick={() =>
+																this._approveRequest(false, request.id)
+															}
+														/>
+													</Table.Cell>
+												</Fragment>
+											)
+										} else {
+											return (
+												<Table.Cell>
+													<Icon name="remove " color="green" />
+												</Table.Cell>
+											)
+										}
+									})()}
 								</Table.Row>
 							),
 						)}

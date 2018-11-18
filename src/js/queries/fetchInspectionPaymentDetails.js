@@ -7,6 +7,7 @@ export default gql`
 			requestedBy {
 				id
 				personnelDetails {
+					id
 					firstName
 					lastName
 				}
@@ -19,6 +20,7 @@ export default gql`
 			requestApprovedBy {
 				id
 				personnelDetails {
+					id
 					firstName
 					lastName
 				}

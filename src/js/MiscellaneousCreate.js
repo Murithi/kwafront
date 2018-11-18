@@ -54,9 +54,14 @@ class MiscellaneousCreate extends Component {
 		console.log(this.props)
 		const { errors, loading } = this.state
 		const miscelTypes = [
-			{ id: 1, value: 'EQUIPMENT', text: 'EQUIPMENT' },
+			{ id: 1, value: 'EQUIPMENT REPAIR', text: 'EQUIPMENT REPAIR' },
 			{ id: 2, value: 'MAINTENANCE', text: 'MAINTENANCE' },
-			{ id: 2, value: 'FEES', text: 'FEES' },
+			{ id: 3, value: 'FEES', text: 'FEES' },
+			{ id: 4, value: 'STATIONERY', text: 'STATIONERY' },
+			{ id: 5, value: 'EQUIPMENT HIRE', text: 'FEES' },
+			{ id: 6, value: 'TRANSPORT', text: 'TRANSPORT' },
+			{ id: 7, value: 'FUEL', text: 'FUEL' },
+			{ id: 8, value: 'OTHERS', text: 'OTHERS' },
 		]
 		return (
 			<Grid

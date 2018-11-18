@@ -4,24 +4,21 @@ import {
 	Table,
 	Grid,
 	Message,
-	Button,
-	Input,
 	Icon,
-	Menu,
 	Divider,
 	Form,
 	Segment,
-	Checkbox,
 } from 'semantic-ui-react'
 import moment from 'moment'
 import { compose, graphql } from 'react-apollo'
-import gql from 'graphql-tag'
+
 import _ from 'lodash'
 
 import InlineError from './messages/InlineError'
 import getPaymentDetails from './queries/fetchInspectionPaymentDetails'
 import getApprovedRequisitions from './queries/fetchInspectionsIssuedCash.js'
 import reportPaymentDetails from './mutations/reportPaymentDetails'
+import getUserDetails from './queries/getUserDetails'
 
 var paymentIssue_id
 const loadingMessage = (
@@ -80,7 +77,7 @@ class ReportInspectionCash extends Component {
 	}
 	render() {
 		const { errors, loading } = this.state
-
+		console.log(this.props.paymentIssue)
 		if (this.props.paymentIssue.loading) {
 			return <div>{loadingMessage}</div>
 		}
@@ -89,7 +86,7 @@ class ReportInspectionCash extends Component {
 		}
 
 		const { issuedVehicleInspection } = this.props.paymentIssue
-		if (issuedVehicleInspection.length === 0) {
+		if (issuedVehicleInspection === undefined) {
 			return <div>{emptyMessage}</div>
 		} else {
 			paymentIssue_id = issuedVehicleInspection.paymentsDetails.id
@@ -243,4 +240,5 @@ export default compose(
 	graphql(reportPaymentDetails, {
 		name: 'addPaymentDetails',
 	}),
+	graphql(getUserDetails, { name: 'userDetails' }),
 )(ReportInspectionCash)

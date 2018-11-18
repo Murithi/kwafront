@@ -73,17 +73,35 @@ class MaterialRequistionInitiated extends Component {
 				})()}
 				<Table celled selectable>
 					<Table.Header>
-						<Table.Row>
-							<Table.HeaderCell>Material</Table.HeaderCell>
-							<Table.HeaderCell> Supplier</Table.HeaderCell>
-							<Table.HeaderCell>Quantity</Table.HeaderCell>
-							<Table.HeaderCell>Cost </Table.HeaderCell>
-							<Table.HeaderCell> Requested By</Table.HeaderCell>
-							<Table.HeaderCell> Date Requested </Table.HeaderCell>
-							<Table.HeaderCell> Details</Table.HeaderCell>
-							<Table.HeaderCell>Approve</Table.HeaderCell>
-							<Table.HeaderCell>Decline</Table.HeaderCell>
-						</Table.Row>
+						{(() => {
+							if (this.props.userDetails.me.role === 'DIRECTOR') {
+								return (
+									<Table.Row>
+										<Table.HeaderCell>Material</Table.HeaderCell>
+										<Table.HeaderCell> Supplier</Table.HeaderCell>
+										<Table.HeaderCell>Quantity</Table.HeaderCell>
+										<Table.HeaderCell>Cost </Table.HeaderCell>
+										<Table.HeaderCell> Requested By</Table.HeaderCell>
+										<Table.HeaderCell> Date Requested </Table.HeaderCell>
+										<Table.HeaderCell> Details</Table.HeaderCell>
+										<Table.HeaderCell>Approve</Table.HeaderCell>
+										<Table.HeaderCell>Decline</Table.HeaderCell>
+									</Table.Row>
+								)
+							} else {
+								return (
+									<Table.Row>
+										<Table.HeaderCell>Material</Table.HeaderCell>
+										<Table.HeaderCell> Supplier</Table.HeaderCell>
+										<Table.HeaderCell>Quantity</Table.HeaderCell>
+										<Table.HeaderCell>Cost </Table.HeaderCell>
+										<Table.HeaderCell> Requested By</Table.HeaderCell>
+										<Table.HeaderCell> Date Requested </Table.HeaderCell>
+										<Table.HeaderCell> Approval Status</Table.HeaderCell>
+									</Table.Row>
+								)
+							}
+						})()}
 					</Table.Header>
 					<Table.Body>
 						{this.props.requisitionFeed.initiatedMaterialRequisitionsFeed.map(
@@ -100,40 +118,47 @@ class MaterialRequistionInitiated extends Component {
 									<Table.Cell>
 										{moment(request.requestDate).format('MMM Do YYYY')}
 									</Table.Cell>
-									<Table.Cell>
-										{(() => {
-											if (request.approvalStatus === true) {
-												return <Icon name="checkmark " color="green" />
-											} else {
-												if (this.props.userDetails.me.role === 'DIRECTOR') {
-													return (
+
+									{(() => {
+										if (this.props.userDetails.me.role === 'DIRECTOR') {
+											return (
+												<Fragment>
+													<Table.Cell>
 														<Link
 															to={`/materialrequisitions/approve/${request.id}`}
 														>
-															Approve
+															View
 															<Icon name="angle double right" />
 														</Link>
-													)
-												} else {
-													return <Icon name="remove " color="green" />
-												}
-											}
-										})()}
-									</Table.Cell>
-									<Table.Cell>
-										<Icon
-											color="blue"
-											name="check circle"
-											onClick={() => this._approveRequest(true, request.id)}
-										/>
-									</Table.Cell>
-									<Table.Cell>
-										<Icon
-											color="red"
-											name="remove circle"
-											onClick={() => this._approveRequest(false, request.id)}
-										/>
-									</Table.Cell>
+													</Table.Cell>
+													<Table.Cell>
+														<Icon
+															color="blue"
+															name="check circle"
+															onClick={() =>
+																this._approveRequest(true, request.id)
+															}
+														/>
+													</Table.Cell>
+													<Table.Cell>
+														<Icon
+															color="red"
+															name="remove circle"
+															onClick={() =>
+																this._approveRequest(false, request.id)
+															}
+														/>
+													</Table.Cell>
+												</Fragment>
+											)
+										} else {
+											return (
+												<Table.Cell>
+													<Icon name="remove " color="green" />
+												</Table.Cell>
+											)
+										}
+									})()}
 								</Table.Row>
 							),
 						)}

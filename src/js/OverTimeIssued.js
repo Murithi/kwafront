@@ -3,14 +3,15 @@ import { graphql, compose } from 'react-apollo'
 import { Link } from 'react-router-dom'
 import { Header, Table, Message, Icon, Menu } from 'semantic-ui-react'
 import moment from 'moment'
-import ApprovedRequisitionsQuery from './queries/fetchIssuedAdvanceRequests'
+import ApprovedRequisitionsQuery from './queries/fetchIssuedOverTimeRequests'
 import getUserDetails from './queries/getUserDetails'
 
-class AdvanceRequestsIssued extends Component {
+class OverTimeIssued extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {}
 	}
+
 	render() {
 		const loadingMessage = (
 			<Message icon info>
@@ -28,7 +29,7 @@ class AdvanceRequestsIssued extends Component {
 				<Message.Content>
 					<Message.Header>No Requisitions Found</Message.Header>
 					<p>Add some new Requisitions to get started.</p>
-					<Link to={'/advancerequests/new'} className="ui button primary">
+					<Link to={'/overtimerequests/new'} className="ui button primary">
 						Add New Requisition{' '}
 					</Link>
 				</Message.Content>
@@ -53,8 +54,8 @@ class AdvanceRequestsIssued extends Component {
 		}
 
 		if (
-			this.props.requisitionFeed.issuedAdvanceRequestFeed === undefined ||
-			this.props.requisitionFeed.issuedAdvanceRequestFeed === 0
+			this.props.requisitionFeed.issuedOverTimeRequestFeed === undefined ||
+			this.props.requisitionFeed.issuedOverTimeRequestFeed === 0
 		) {
 			return <div>{emptyMessage}</div>
 		}
@@ -77,7 +78,7 @@ class AdvanceRequestsIssued extends Component {
 						</Table.Row>
 					</Table.Header>
 					<Table.Body />
-					{this.props.requisitionFeed.issuedAdvanceRequestFeed.map(request => {
+					{this.props.requisitionFeed.issuedOverTimeRequestFeed.map(request => {
 						return (
 							<Table.Row>
 								<Table.Cell>
@@ -94,7 +95,7 @@ class AdvanceRequestsIssued extends Component {
 								<Table.Cell>{request.otherDetails}</Table.Cell>
 
 								<Table.Cell>
-									<Icon name="checkmark " color="green" />
+									<Icon name="checkmark" color="green" />
 								</Table.Cell>
 								<Table.Cell>
 									{moment(request.cashIssueDetails.dateIssued).format(
@@ -136,4 +137,4 @@ export default compose(
 	graphql(getUserDetails, {
 		name: 'userDetails',
 	}),
-)(AdvanceRequestsIssued)
+)(OverTimeIssued)
